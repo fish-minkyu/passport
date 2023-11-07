@@ -1,8 +1,7 @@
 'use strict';
 const {
-  Model
+  Model, Sequelize
 } = require('sequelize');
-const { Sequelize } = require('.');
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -36,13 +35,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     provider: {
-      type: DataTypes.ENUM('local', 'kakao'),
       allowNull: false,
-      defaultValue: 'local'
+      type: DataTypes.ENUM('local', 'kakao')
     },
     snsId: {
-      type: DataTypes.STRING(30),
-      allowNull: true
+      allowNull: true,
+      type: DataTypes.STRING
     },
     createdAt: {
       allowNull: false,
@@ -54,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Users'
+    modelName: 'Users',
   });
   return Users;
 };

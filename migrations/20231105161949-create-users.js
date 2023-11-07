@@ -23,14 +23,14 @@ module.exports = {
       sessionData: {
         type: Sequelize.STRING
       },
-      provider: {
+      provier: {
         allowNull: false,
         type: Sequelize.ENUM('local', 'kakao'),
         defaultValue: 'local'
       },
       snsId: {
         allowNull: true,
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
