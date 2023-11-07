@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const { Users } = require('../models')
+const { isLoggedIn, isNotLoggedIn } = require('../middlewares/auth.middleware')
 
 // 회원가입
 router.post('/signup', async (req, res) => {
@@ -30,7 +31,7 @@ router.post('/signup', async (req, res) => {
 
 
 // 로그인
-router.post('/login', (req, res, next) => { //* Q. passport.authenticate()는 LocalStrategy를 'local'만으로 어떻게 찾았지?
+router.post('/login', isNotLoggedIn, async (req, res, next) => { //* Q. passport.authenticate()는 LocalStrategy를 'local'만으로 어떻게 찾았지?
   passport.authenticate('local', (authError, user, info) => { // 'local' 전략을 사용하여 인증을 시도한다.
     // 인증 과정 중 에러가 발생한 경우
     if (authError) { 
@@ -38,7 +39,8 @@ router.post('/login', (req, res, next) => { //* Q. passport.authenticate()는 Lo
       return next(authError);
     }
     // 사용자를 찾지 못한 경우
-    if (!user) { 
+    if (!user) {
+      console.log(info) 
       return  res.status(401).json(info);
     }
     // req.login 메서드를 호출하여 사용자를 로그인 시킨다.
