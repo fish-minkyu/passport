@@ -30,9 +30,12 @@ router.post('/signup', isNotLoggedIn, async (req, res) => {
 })
 
 
-// 로그인
+// 로컬 로그인
 router.post('/login', isNotLoggedIn, async (req, res, next) => {
-  passport.authenticate('local', (authError, user, info) => { // 'local' 전략을 사용하여 인증을 시도한다.
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    successRedirect: '/'
+  }, (authError, user, info) => { // 'local' 전략을 사용하여 인증을 시도한다.
     // 인증 과정 중 에러가 발생한 경우
     if (authError) { 
       console.error(authError);
@@ -64,5 +67,17 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => {
   
   (req, res, next); // 미들웨어 내의 미들웨어에는 콜백을 실행시키기위해 (req, res, next)를 붙인다.
 });
+
+// 카카오 로그인
+router.get('/kakao', passport.authenticate('kakao'))
+router.get('kakao/callback', passport.authenticate('kakao', {
+  failureRedirect: '/'
+}), 
+  // kakaoStrategy에서 성공한다면 콜백 실행
+  (req, res) => {
+    res.redirect('/')
+  }
+);
+
 
 module.exports = router

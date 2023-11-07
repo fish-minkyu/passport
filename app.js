@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const indexRoute = require('./routes/index')
 const passportConfig = require('./passport/index.passport')
+const dotenv = require('dotenv')
+dotenv.config()
 passportConfig()
 
 
@@ -15,7 +17,7 @@ app.use(
   session({
     resave: false, // 
     saveUninitialized: false, // 처음부터 세션을 생성할지
-    secret: 'secret-key', // 쿠키 서명 값
+    secret: process.env.COOKIE_SECRET, // 쿠키 서명 값
     cookie: {
        httpOnly: true,
        secure: false,

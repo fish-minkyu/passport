@@ -23,6 +23,15 @@ module.exports = {
       sessionData: {
         type: Sequelize.STRING
       },
+      provider: {
+        allowNull: false,
+        type: Sequelize.ENUM('local', 'kakao'),
+        defaultValue: 'local'
+      },
+      snsId: {
+        allowNull: true,
+        type: Sequelize.STRING(30)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

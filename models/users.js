@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { Sequelize } = require('.');
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -34,6 +35,15 @@ module.exports = (sequelize, DataTypes) => {
     sessionData: {
       type: DataTypes.STRING
     },
+    provider: {
+      type: DataTypes.ENUM('local', 'kakao'),
+      allowNull: false,
+      defaultValue: 'local'
+    },
+    snsId: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE
@@ -44,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Users',
+    modelName: 'Users'
   });
   return Users;
 };
