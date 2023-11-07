@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       password: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       sessionId: {
@@ -23,7 +23,7 @@ module.exports = {
       sessionData: {
         type: Sequelize.STRING
       },
-      provier: {
+      provider: {
         allowNull: false,
         type: Sequelize.ENUM('local', 'kakao'),
         defaultValue: 'local'

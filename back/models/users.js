@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     password: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING
     },
     sessionId: {
@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     provider: {
       allowNull: false,
-      type: DataTypes.ENUM('local', 'kakao')
+      type: DataTypes.ENUM('local', 'kakao'),
+      defaultValue: 'local'
     },
     snsId: {
       allowNull: true,

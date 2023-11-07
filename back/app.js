@@ -34,8 +34,8 @@ app.use(passport.session()); // req.session 객체에 passport 인증 완료 정
 
 app.get('/', function (req, res, next) {
    
-  console.log(req.session.id) 
-  console.log(req.session.passport.user)
+  // console.log(req.session.id) 
+  // console.log(req.session.passport.user)
   res.send('Hello session')
 })
 

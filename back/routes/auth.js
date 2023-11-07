@@ -10,6 +10,8 @@ router.post('/signup', isNotLoggedIn, async (req, res) => {
   const { email, password, confirm } = req.body
 
   try {
+    if (!password) throw new Error({ errMessage: '비밀번호를 입력해주세요.'})
+
     const exUser = await Users.findOne({ where: { email }})
 
     if (exUser) throw new Error({ errMessage: '이미 존재하는 이메일입니다.'})
@@ -70,7 +72,7 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => {
 
 // 카카오 로그인
 router.get('/kakao', passport.authenticate('kakao'))
-router.get('kakao/callback', passport.authenticate('kakao', {
+router.get('/kakao/callback', passport.authenticate('kakao', {
   failureRedirect: '/'
 }), 
   // kakaoStrategy에서 성공한다면 콜백 실행
