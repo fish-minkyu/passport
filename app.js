@@ -4,7 +4,7 @@ const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const indexRoute = require('./routes/index')
-const passportConfig = require('./passport/passport')
+const passportConfig = require('./passport/index.passport')
 passportConfig()
 
 
@@ -33,7 +33,7 @@ app.use(passport.session()); // req.session 객체에 passport 인증 완료 정
 app.get('/', function (req, res, next) {
    
   console.log(req.session.id) 
-  console.log(req.session.passport.user.userId)
+  console.log(req.session.passport.user)
   res.send('Hello session')
 })
 

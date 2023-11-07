@@ -6,7 +6,7 @@ const { Users } = require('../models')
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares/auth.middleware')
 
 // 회원가입
-router.post('/signup', async (req, res) => {
+router.post('/signup', isNotLoggedIn, async (req, res) => {
   const { email, password, confirm } = req.body
 
   try {
@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
 
 
 // 로그인
-router.post('/login', isNotLoggedIn, async (req, res, next) => { //* Q. passport.authenticate()는 LocalStrategy를 'local'만으로 어떻게 찾았지?
+router.post('/login', isNotLoggedIn, async (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => { // 'local' 전략을 사용하여 인증을 시도한다.
     // 인증 과정 중 에러가 발생한 경우
     if (authError) { 
@@ -53,17 +53,16 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => { //* Q. passport
       // 유저 세션 정보 저장
       Users.update({
         sessionId: req.session.id,
-        sessionData: req.session.passport.user.userId
+        sessionData: req.session.passport.user
       }, {
         where: { userId: user.userId }
       })
-      
+      // done(null, user)로 로직이 성공적이라면, 세션에 사용자 정보를 저장해놔서 로그인 상태가 된다.
       return res.redirect('/')
     });
   }) 
   
-  (req, res, next);
+  (req, res, next); // 미들웨어 내의 미들웨어에는 콜백을 실행시키기위해 (req, res, next)를 붙인다.
 });
-
 
 module.exports = router

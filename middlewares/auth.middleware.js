@@ -7,6 +7,7 @@ function isLoggedIn(req, res, next) {
   }
 };
 
+// 로그인 시, 이미 로그인이 되어 있는지 확인하는 미들웨어
 function isNotLoggedIn (req, res, next) {
   if (!req.isAuthenticated()) {
     next(); // 로그인 안되어있으면 다음 미들웨어
