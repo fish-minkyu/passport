@@ -7,7 +7,7 @@ const { isLoggedIn, isNotLoggedIn } = require('../middlewares/auth.middleware')
 
 // 회원가입
 router.post('/signup', isNotLoggedIn, async (req, res) => {
-  const { email, password, confirm } = req.body
+  const { email, password, nickname, confirm } = req.body
 
   try {
     if (!password) throw new Error({ errMessage: '비밀번호를 입력해주세요.'})
@@ -22,7 +22,7 @@ router.post('/signup', isNotLoggedIn, async (req, res) => {
 
     const salt = await bcrypt.genSalt()
     const hashedPassword = await bcrypt.hash(password, salt)
-    const user = await Users.create({ email, password: hashedPassword})
+    const user = await Users.create({ email, nickname, password: hashedPassword})
 
     res.status(201).json({ user })
   } catch (err) {
@@ -76,6 +76,17 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
   failureRedirect: '/'
 }), 
   // kakaoStrategy에서 성공한다면 콜백 실행
+  (req, res) => {
+    res.redirect('/')
+  }
+);
+
+// 네이버 로그인
+router.get('/naver', passport.authenticate('naver', { authType: 'reprompt' }));
+router.get('/naver/callback', passport.authenticate('naver', {
+  failureRedirect: '/'
+}), 
+  // NaverStrategy에서 성공한다면 콜백 실행
   (req, res) => {
     res.redirect('/')
   }
