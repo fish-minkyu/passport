@@ -2,6 +2,7 @@ const passport = require('passport');
 const local = require('./localStrategy'); // 로컬서버로 로그인할 때
 const kakao = require('./kakaoStrategy'); // 카카오서버로 로그인할 때
 const naver = require('./naverStrategy') // 네이버서버로 로그인할 때
+const google = require('./googleStrategy') // 구글서버로 로그인할 때
 const { Users } = require('../models')
 
 module.exports = () => {
@@ -39,4 +40,5 @@ module.exports = () => {
   local()
   kakao()
   naver()
+  google()
 }; 

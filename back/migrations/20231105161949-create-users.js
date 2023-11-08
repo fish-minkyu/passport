@@ -29,7 +29,7 @@ module.exports = {
       },
       provider: {
         allowNull: false,
-        type: Sequelize.ENUM('local', 'kakao', 'naver'),
+        type: Sequelize.ENUM('local', 'kakao', 'naver', 'google'),
         defaultValue: 'local'
       },
       snsId: {

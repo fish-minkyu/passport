@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     provider: {
       allowNull: false,
-      type: DataTypes.ENUM('local', 'kakao', 'naver'),
+      type: DataTypes.ENUM('local', 'kakao', 'naver', 'google'),
       defaultValue: 'local'
     },
     snsId: {
