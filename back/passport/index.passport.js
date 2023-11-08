@@ -1,6 +1,7 @@
 const passport = require('passport');
-const local = require('./localStrategy'); // 로컬서버로 로그인할때
-const kakao = require('./kakaoStrategy'); // 카카오서버로 로그인할때
+const local = require('./localStrategy'); // 로컬서버로 로그인할 때
+const kakao = require('./kakaoStrategy'); // 카카오서버로 로그인할 때
+const naver = require('./naverStrategy') // 네이버서버로 로그인할 때
 const { Users } = require('../models')
 
 module.exports = () => {
@@ -37,4 +38,5 @@ module.exports = () => {
   // 해당 함수를 호출함으로써 passport는 서버에서 해당 전략을 사용할 수 있도록 설정이 된다.
   local()
   kakao()
+  naver()
 }; 

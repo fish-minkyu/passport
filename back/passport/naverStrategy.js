@@ -18,14 +18,17 @@ module.exports = () => {
           done(null, exUser)
         } else {
           const newUser = await Users.create({
-            email: profile.email
-          })
+            email: profile.email,
+            nickname: profile.name,
+            snsId: profile.id,
+            provider: 'naver'
+          });
+          done(null, newUser)
         }
       } catch (err) {
-
+        console.error(err)
+        done(err)
       }
     }
-  ))
-
-
+  ));
 };
