@@ -103,6 +103,6 @@ router.get('/google/callback', passport.authenticate('google', {
   (req, res) => {
     res.redirect('/')
   }
-)
+);
 
 module.exports = router
