@@ -15,7 +15,7 @@ module.exports = () => {
         const exUser = await Users.findOne({ where: { snsId: profile.id, provider: 'naver' }});
 
         if (exUser) {
-          done(null, exUser)
+          done(null, exUser) // 로그인 성공
         } else {
           const newUser = await Users.create({
             email: profile.email,
@@ -23,7 +23,7 @@ module.exports = () => {
             snsId: profile.id,
             provider: 'naver'
           });
-          done(null, newUser)
+          done(null, newUser) // 회원가입 후 로그인 성공
         }
       } catch (err) {
         console.error(err)
