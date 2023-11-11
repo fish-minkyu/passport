@@ -56,7 +56,7 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => {
         return next(loginError);
       }
       // 유저 세션 정보 저장
-      Users.update({
+      Users.update({ // update 메소드를 쓰는 이유는 null 상태에서 바꿔주기 때문이다.
         sessionId: req.session.id,
         sessionData: req.session.passport.user
       }, {
