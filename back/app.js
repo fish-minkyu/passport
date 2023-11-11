@@ -33,10 +33,17 @@ app.use(passport.initialize()); // 요청 객체에 passport 설정을 심는다
 app.use(passport.session()); // req.session 객체에 passport 인증 완료 정보를 추가 저장한다.
 
 app.get('/', function (req, res, next) {
-   
   // console.log(req.session.id) 
   // console.log(req.session.passport.user)
   res.send('Hello session')
+})
+
+app.get('/fail', function (req, res, next) {
+  res.send('실패')
+})
+
+app.get('/success', function (req, res, next) {
+  res.send('성공')
 })
 
 app.use('/', indexRoute)

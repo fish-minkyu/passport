@@ -72,16 +72,16 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => {
 
 // 카카오 로그인
 // /kakao로 요청 -> 카카오 로그인 페이지 -> /kakao/callback
-router.get('/kakao', passport.authenticate('kakao'))
-// 위에서 카카오 서버 로그인이 되면, 카카오 redirect url 설정에 따라 이쪽 라우터로 오게 된다.
-router.get('/kakao/callback', passport.authenticate('kakao', {
-  failureRedirect: '/' // KakaoStartegy에서 실패한다면 실행
-}), 
-  // kakaoStrategy에서 성공한다면 콜백 실행
-  (req, res) => {
-    res.redirect('/')
-  }
-);
+// router.get('/kakao', passport.authenticate('kakao'))
+// // 위에서 카카오 서버 로그인이 되면, 카카오 redirect url 설정에 따라 이쪽 라우터로 오게 된다.
+// router.get('/kakao/callback', passport.authenticate('kakao', {
+//   failureRedirect: '/' // KakaoStartegy에서 실패한다면 실행
+// }), 
+//   // kakaoStrategy에서 성공한다면 콜백 실행
+//   (req, res) => {
+//     res.redirect('/')
+//   }
+// );
 
 // 네이버 로그인
 router.get('/naver', passport.authenticate('naver', { authType: 'reprompt' }));
@@ -91,7 +91,7 @@ router.get('/naver/callback', passport.authenticate('naver', {
 }), 
   // NaverStrategy에서 성공한다면 콜백 실행
   (req, res) => {
-    res.redirect('/')
+    res.redirect('http://localhost:3000')
   }
 );
 
@@ -102,6 +102,15 @@ router.get('/google/callback', passport.authenticate('google', {
 }),
   (req, res) => {
     res.redirect('/')
+  }
+);
+
+router.get('/kakao', passport.authenticate('kakao', {
+  failureRedirect: '/fail'
+}))
+// 위에서 카카오 서버 로그인이 되면, 카카오 redirect url 설정에 따라 이쪽 라우터로 오게 된다.
+router.get('/kakao/callback', async(req, res, next) => {
+    res.redirect('/success')
   }
 );
 
