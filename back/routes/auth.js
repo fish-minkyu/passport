@@ -71,7 +71,7 @@ router.post('/login', isNotLoggedIn, async (req, res, next) => {
 });
 
 // 카카오 로그인
-// kakao로 요청 -> 카카오 로그인 페이지 -> /kakao/callback
+// kakao로 요청 -> 카카오 로그인 페이지 -> /kakao
 router.get('/kakao', passport.authenticate('kakao'), (req, res) => {
   res.redirect('/')
 })
@@ -107,6 +107,7 @@ router.get('/google/callback', passport.authenticate('google', {
   }
 );
 
+// kakao로 요청 -> 카카오 로그인 페이지 -> /kakao/callback
 // router.get('/kakao', passport.authenticate('kakao', {
 //   failureRedirect: '/fail'
 // }))
